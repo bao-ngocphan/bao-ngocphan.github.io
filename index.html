@@ -305,6 +305,48 @@
   }
   .back-link:hover{ text-decoration: underline; }
 
+  .article-content{ max-width: 720px; }
+  .article-content .article-abstract{
+    font-family:'Itim', cursive;
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: var(--white-85);
+    background: var(--card-soft);
+    border-left: 3px solid var(--cream);
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin: 0 0 30px;
+  }
+  .article-content .article-abstract strong{
+    display:block;
+    font-family:'Inter', sans-serif;
+    font-size: .78rem;
+    letter-spacing:.08em;
+    text-transform: uppercase;
+    color: var(--cream);
+    margin-bottom: 8px;
+  }
+  .article-content h3{
+    font-family:'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: var(--white);
+    letter-spacing:.01em;
+    margin: 34px 0 12px;
+  }
+  .article-content h3:first-of-type{ margin-top: 0; }
+  .article-content p.body-text{ margin: 0 0 16px; max-width: none; }
+  .article-content ul{
+    font-family:'Itim', cursive;
+    font-size: 1.12rem;
+    line-height: 1.6;
+    color: var(--white-85);
+    margin: 0 0 16px;
+    padding-left: 22px;
+  }
+  .article-content ul li{ margin-bottom: 8px; }
+  .article-content ul li::marker{ color: var(--cream); }
+
   .link-btn{
     background:none; border:none; cursor:pointer;
     padding:0; font: inherit;
@@ -395,7 +437,7 @@
         <button type="button" class="project-card" data-category="research" data-title="Research"><span class="tag">Research</span><p>Coming soon.</p></button>
         <button type="button" class="project-card" data-category="research" data-title="Research"><span class="tag">Research</span><p>Coming soon.</p></button>
 
-        <button type="button" class="project-card hide" data-category="writing" data-title="Writing"><span class="tag">Writing</span><p>Coming soon.</p></button>
+        <button type="button" class="project-card hide" data-category="writing" data-title="Real Research in High School: Cold Emails, Mentorship, and Why Buying Papers Defeats the Point" data-slug="real-research-hs"><span class="tag">Writing</span><p>Cold emails, mentorship programs, peer review, and why paying for a paper misses the entire point of doing research.</p></button>
         <button type="button" class="project-card hide" data-category="writing" data-title="Writing"><span class="tag">Writing</span><p>Coming soon.</p></button>
         <button type="button" class="project-card hide" data-category="writing" data-title="Writing"><span class="tag">Writing</span><p>Coming soon.</p></button>
 
@@ -409,8 +451,51 @@
     <section class="page" id="page-detail" aria-labelledby="detail-heading">
       <button type="button" class="back-link" id="detail-back">&larr; Back to Projects</button>
       <h2 class="section-title" id="detail-heading"><span id="detail-title">Project</span><span class="accent">.</span></h2>
-      <p class="body-text" id="detail-body">Coming soon — this piece isn't published yet, but thanks for clicking in! Check back soon.</p>
+      <div id="detail-body">
+        <p class="body-text">Coming soon — this piece isn't published yet, but thanks for clicking in! Check back soon.</p>
+      </div>
     </section>
+
+    <template id="article-real-research-hs">
+      <div class="article-content">
+        <p class="article-abstract"><strong>Abstract</strong>More high school students want to do real academic research instead of just reading textbooks. However, getting into a lab, finishing a paper, and passing peer review takes a lot of time and effort. This paper shares practical steps based on my own experience, from cold emailing professors and winning full financial aid for mentorship programs, to surviving peer review, while calling out the rising trend of buying research papers.</p>
+
+        <h3>1. Introduction</h3>
+        <p class="body-text">High school science is usually about memorizing facts and doing preset lab exercises. Real research is messy. You run into dead ends, tests fail, and you have to redo work constantly. Getting involved in that process before college is a great experience, but you need to know how to find opportunities, how to handle the workload, and why taking shortcuts ruins the whole point.</p>
+
+        <h3>2. Cold Emailing: Do Your Homework First</h3>
+        <p class="body-text">Sending cold emails to professors is one of the best ways to join a lab, but copy-pasting the same template to twenty people never works. Professors spot mass emails immediately. A working approach looks like this:</p>
+        <ul>
+          <li>Read their papers first: Pick 2 or 3 recent papers from the professor's lab. Find out what they actually work on and see if it genuinely interests you.</li>
+          <li>Write a direct, specific email: Mention the specific papers you read and how their focus connects to what you want to learn. Briefly share your background — like your grades, courses, or skills — and attach your CV. Ask for a brief meeting to talk about their work.</li>
+          <li>Be ready for the interview: If a professor replies, they will want to talk to you. They will ask about your basic knowledge and why you picked their lab. Because you actually read their papers, you can answer clearly and show you are ready to put in the work.</li>
+        </ul>
+
+        <h3>3. Mentorship Programs &amp; Financial Aid</h3>
+        <p class="body-text">If you cannot find a local lab, programs like Lumiere Education or Polygence pair students directly with PhD mentors.</p>
+        <p class="body-text">These programs can be expensive, but many offer financial aid. If you have a solid academic record, a clear idea of what you want to study, and write an honest application, getting 100% financial aid is entirely possible. These programs give you good practice in reading papers, structuring arguments, and writing a full draft.</p>
+
+        <h3>4. Peer Review</h3>
+        <p class="body-text">Writing a paper is only the first step. Submitting it to a credible high school journal means going through real peer review.</p>
+        <p class="body-text">Reviewers will question your methods, point out gaps in your data, and ask you to rewrite sections. Answering their comments takes weeks of careful work. If you did not write the paper yourself, or if you don't understand the math and theory behind it, you cannot defend your work to an editor.</p>
+
+        <h3>5. Why Buying Research Is Pointless</h3>
+        <p class="body-text">Because college admissions are competitive, a bad market has popped up: services that sell ready-made papers, write drafts for students, or put students' names on projects they never touched.</p>
+        <p class="body-text">This is a terrible idea for three simple reasons:</p>
+        <ul>
+          <li>It is dishonest: Claiming credit for research you did not do goes against basic academic ethics.</li>
+          <li>Anyone who knows the field can tell: In an interview, a professor or admissions officer only needs two minutes to realize whether you understand your own paper.</li>
+          <li>You miss the actual lesson: The whole point of research is learning how to think, fix mistakes, and work through confusing problems. Buying a finished paper gives you none of that.</li>
+        </ul>
+
+        <h3>6. Keep Up With School</h3>
+        <p class="body-text">Research takes up a lot of hours, but your normal schoolwork cannot take a hit. A good paper does not make up for a drop in your GPA.</p>
+        <p class="body-text">You need to manage your time strictly: set aside clear hours for reading papers or running tests, treat deadlines seriously, and step back from research during exam weeks. It is tough, but if you enjoy the topic, you can handle both.</p>
+
+        <h3>7. Conclusion</h3>
+        <p class="body-text">Doing research in high school should not be about buying a line on your resume. When you take the time to read the literature, reach out to professors directly, and write your own papers, you build real problem-solving skills. The hard work is the entire point — and that is something you cannot buy.</p>
+      </div>
+    </template>
 
   </main>
 
@@ -478,8 +563,10 @@
 
   // Project card -> detail page
   var detailTitle = document.getElementById('detail-title');
+  var detailBody = document.getElementById('detail-body');
   var detailBack = document.getElementById('detail-back');
   var FACEBOOK_URL = 'https://www.facebook.com/profile.php?id=61568577570872';
+  var DEFAULT_DETAIL_BODY = "<p class=\"body-text\">Coming soon — this piece isn't published yet, but thanks for clicking in! Check back soon.</p>";
   cards.forEach(function(card){
     card.addEventListener('click', function(){
       if(card.dataset.category === 'photos'){
@@ -487,6 +574,9 @@
         return;
       }
       detailTitle.textContent = card.dataset.title || 'Project';
+      var slug = card.dataset.slug;
+      var template = slug ? document.getElementById('article-' + slug) : null;
+      detailBody.innerHTML = template ? template.innerHTML : DEFAULT_DETAIL_BODY;
       showPage('detail');
     });
   });
