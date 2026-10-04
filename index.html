@@ -4,6 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bao-Ngoc Phan</title>
+<script>
+  // Restore the real URL after 404.html bounced a direct visit / reload to the homepage
+  (function(){
+    try{
+      var r = sessionStorage.getItem('spa-redirect');
+      if(r){
+        sessionStorage.removeItem('spa-redirect');
+        history.replaceState(null, '', r);
+      }
+    }catch(e){}
+  })();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Itim&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -415,7 +427,7 @@
     <nav aria-label="Primary">
       <button data-target="home" aria-current="page">Home</button>
       <button data-target="projects">Projects</button>
-      <a href="MyCV.pdf" target="_blank" rel="noopener">CV</a>
+      <a href="/MyCV.pdf" target="_blank" rel="noopener">CV</a>
     </nav>
   </header>
 
@@ -525,7 +537,7 @@
         </ul>
         <p class="body-text">This project was my first real stepping stone into research. I have attached the full paper below.</p>
         <p class="body-text">I hope you enjoy reading it, and I really hope my story inspires some of you to start your own research early, even if you have to deal with a few rejections first!</p>
-        <p class="body-text">📄 <a class="cv-link" href="CNT_Drug_Delivery_Review.pdf" target="_blank" rel="noopener">Read the full paper: Evaluating surface functionalization strategies in carbon nanotube-based drug delivery for cancer therapy</a></p>
+        <p class="body-text">📄 <a class="cv-link" href="/CNT_Drug_Delivery_Review.pdf" target="_blank" rel="noopener">Read the full paper: Evaluating surface functionalization strategies in carbon nanotube-based drug delivery for cancer therapy</a></p>
       </div>
     </template>
 
@@ -581,13 +593,13 @@
         <h3>Snapshots from the conference</h3>
         <div class="photo-gallery">
           <figure>
-            <img src="conference-1.jpg" alt="Our team standing beside the research poster at the conference" loading="lazy">
+            <img src="/conference-1.jpg" alt="Our team standing beside the research poster at the conference" loading="lazy">
           </figure>
           <figure>
-            <img src="conference-2.jpg" alt="Participants chatting and discussing during a break at the conference" loading="lazy">
+            <img src="/conference-2.jpg" alt="Participants chatting and discussing during a break at the conference" loading="lazy">
           </figure>
           <figure class="wide">
-            <img src="conference-3.jpg" alt="Group photo of attendees in front of the Vietnam Symposium on Rechargeable Batteries screen" loading="lazy">
+            <img src="/conference-3.jpg" alt="Group photo of attendees in front of the Vietnam Symposium on Rechargeable Batteries screen" loading="lazy">
           </figure>
         </div>
       </div>
@@ -611,7 +623,7 @@
 
   <footer class="site-footer">
     <div class="sig-row">
-      <img class="signature-logo" src="logo_moi.jpeg" alt="Louie Phan signature" aria-hidden="true">
+      <img class="signature-logo" src="/logo_moi.jpeg" alt="Louie Phan signature" aria-hidden="true">
 
       <a class="icon-btn round" href="https://orcid.org/0009-0007-8323-7220" target="_blank" rel="noopener" aria-label="ORCID profile">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.525 0 .947.422.947.947 0 .525-.422.947-.947.947-.525 0-.946-.422-.946-.947 0-.525.421-.947.946-.947zM6.647 7.416h1.444v10.041H6.647V7.416zm3.562 0h3.9c3.712 0 5.344 2.653 5.344 5.025 0 2.578-2.016 5.025-5.325 5.025h-3.919V7.416zm1.444 1.303v7.444h2.297c3.272 0 4.022-2.484 4.022-3.722 0-2.016-1.284-3.722-4.097-3.722h-2.222z"/></svg>
@@ -635,12 +647,21 @@
   var navButtons = document.querySelectorAll('.site-nav button');
   var pages = document.querySelectorAll('section.page');
 
+  var pills = document.querySelectorAll('.pill');
+  var cards = document.querySelectorAll('.project-card');
+  var detailTitle = document.getElementById('detail-title');
+  var detailBody = document.getElementById('detail-body');
+  var detailBack = document.getElementById('detail-back');
+  var DEFAULT_DETAIL_BODY = "<p class=\"body-text\">Coming soon — this piece isn't published yet, but thanks for clicking in! Check back soon.</p>";
+  var SITE_TITLE = 'Bao-Ngoc Phan';
+
   function showPage(target){
+    var navTarget = (target === 'detail') ? 'projects' : target;
     pages.forEach(function(p){
       p.classList.toggle('active', p.id === 'page-' + target);
     });
     navButtons.forEach(function(b){
-      if(b.dataset.target === target){
+      if(b.dataset.target === navTarget){
         b.setAttribute('aria-current', 'page');
       } else {
         b.removeAttribute('aria-current');
@@ -649,44 +670,82 @@
     window.scrollTo({ top: 0, behavior: 'auto' });
   }
 
-  navButtons.forEach(function(btn){
-    btn.addEventListener('click', function(){
-      showPage(btn.dataset.target);
-    });
-  });
-
   // Projects filter
-  var pills = document.querySelectorAll('.pill');
-  var cards = document.querySelectorAll('.project-card');
+  function setFilter(filter){
+    pills.forEach(function(p){
+      p.setAttribute('aria-pressed', p.dataset.filter === filter ? 'true' : 'false');
+    });
+    cards.forEach(function(card){
+      card.classList.toggle('hide', card.dataset.category !== filter);
+    });
+  }
 
   pills.forEach(function(pill){
     pill.addEventListener('click', function(){
-      pills.forEach(function(p){ p.setAttribute('aria-pressed', 'false'); });
-      pill.setAttribute('aria-pressed', 'true');
-      var filter = pill.dataset.filter;
-      cards.forEach(function(card){
-        var show = filter === 'all' || card.dataset.category === filter;
-        card.classList.toggle('hide', !show);
-      });
+      setFilter(pill.dataset.filter);
+    });
+  });
+
+  // Router: URL path -> page
+  //   /  or /home          -> Home
+  //   /projects            -> Projects
+  //   /projects/<slug>     -> project detail
+  function render(path){
+    var parts = path.replace(/^\/+|\/+$/g, '').split('/');
+    var page = parts[0] || 'home';
+
+    if(page === 'projects' && parts[1]){
+      var card = document.querySelector('.project-card[data-slug="' + parts[1] + '"]');
+      var template = card ? document.getElementById('article-' + parts[1]) : null;
+      if(card && template){
+        detailTitle.textContent = card.dataset.title || 'Project';
+        detailBody.innerHTML = template.innerHTML;
+        setFilter(card.dataset.category);
+        showPage('detail');
+        document.title = (card.dataset.title || 'Project') + ' | ' + SITE_TITLE;
+        return;
+      }
+    }
+
+    if(page !== 'projects') page = 'home';
+    showPage(page);
+    document.title = (page === 'projects' ? 'Projects' : SITE_TITLE) + (page === 'projects' ? ' | ' + SITE_TITLE : '');
+  }
+
+  function go(path){
+    if(location.pathname !== path){
+      history.pushState(null, '', path);
+    }
+    render(path);
+  }
+
+  window.addEventListener('popstate', function(){
+    render(location.pathname);
+  });
+
+  navButtons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      go('/' + btn.dataset.target);
     });
   });
 
   // Project card -> detail page
-  var detailTitle = document.getElementById('detail-title');
-  var detailBody = document.getElementById('detail-body');
-  var detailBack = document.getElementById('detail-back');
-  var DEFAULT_DETAIL_BODY = "<p class=\"body-text\">Coming soon — this piece isn't published yet, but thanks for clicking in! Check back soon.</p>";
   cards.forEach(function(card){
     card.addEventListener('click', function(){
-      detailTitle.textContent = card.dataset.title || 'Project';
       var slug = card.dataset.slug;
-      var template = slug ? document.getElementById('article-' + slug) : null;
-      detailBody.innerHTML = template ? template.innerHTML : DEFAULT_DETAIL_BODY;
-      showPage('detail');
+      if(slug){
+        go('/projects/' + slug);
+      } else {
+        // "Coming soon" placeholder: show it, reload falls back to /projects
+        detailTitle.textContent = card.dataset.title || 'Project';
+        detailBody.innerHTML = DEFAULT_DETAIL_BODY;
+        history.pushState(null, '', '/projects/coming-soon');
+        showPage('detail');
+      }
     });
   });
   if(detailBack){
-    detailBack.addEventListener('click', function(){ showPage('projects'); });
+    detailBack.addEventListener('click', function(){ go('/projects'); });
   }
 
   // CV page "research photos" link -> Projects page, photos filter
@@ -698,6 +757,10 @@
       if(photosPill){ photosPill.click(); }
     });
   }
+
+  // Initial render from the current URL (so reload stays on the same page)
+  setFilter('research');
+  render(location.pathname);
 })();
 </script>
 </body>
