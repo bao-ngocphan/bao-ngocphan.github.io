@@ -431,6 +431,40 @@
     margin: 56px 0 40px;
   }
 
+
+  /* căn đều 2 bên cho nội dung */
+  p.body-text,
+  .article-content .article-abstract,
+  .article-content ul,
+  .article-content ul li,
+  .info-card p,
+  .project-card p,
+  .epigraph p{
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+  .epigraph p{ text-align: left; hyphens: none; }
+  .project-card p{ text-align: justify; }
+
+  /* sub-groups in Writing */
+  .sub-heading{
+    grid-column: 1 / -1;
+    margin: 10px 0 -6px;
+    font-family:'Itim', cursive;
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: var(--cream);
+    letter-spacing:.02em;
+    display:flex; align-items:center; gap:14px;
+  }
+  .sub-heading::after{
+    content:""; flex:1; height:1px; background: var(--line);
+  }
+  .sub-heading:first-child{ margin-top: 0; }
+  .sub-heading.hide{ display:none; }
+
   /* k biet dat ten j */
   @media (max-width: 980px){
     .wrap{ padding: 0 36px; }
@@ -512,9 +546,12 @@
         <button type="button" class="project-card" data-category="research" data-title="My Second Project: Computational Chemistry at HNUE" data-slug="czbn-heterohelicenes"><span class="tag">Research</span><p>My first research project @HNUE.</p></button>
         <button type="button" class="project-card" data-category="research" data-title="Research"><span class="tag">Research</span><p>Coming soon.</p></button>
 
-        <button type="button" class="project-card hide" data-category="writing" data-title="Research in High School" data-slug="real-research-hs"><span class="tag">Writing</span><p>How to do research when you are just a high school student?</p></button>
-        <button type="button" class="project-card hide" data-category="writing" data-title="I Love the Soul of Vietnamese Poetry" data-slug="mysoul"><span class="tag">Writing</span><p>Tôi yêu hồn thơ Việt - a bilingual essay on how poetry became part of who I am.</p></button>
-        <button type="button" class="project-card hide" data-category="writing" data-title="Writing"><span class="tag">Writing</span><p>Coming soon.</p></button>
+        <h3 class="sub-heading hide" data-category="writing">Research</h3>
+        <button type="button" class="project-card hide" data-category="writing" data-sub="research" data-title="Research in High School" data-slug="real-research-hs"><span class="tag">Writing · Research</span><p>How to do research when you are just a high school student?</p></button>
+
+        <h3 class="sub-heading hide" data-category="writing">Creative Writing</h3>
+        <button type="button" class="project-card hide" data-category="writing" data-sub="creative" data-title="I Love the Soul of Vietnamese Poetry" data-slug="mysoul"><span class="tag">Writing · Creative</span><p>Tôi yêu hồn thơ Việt - a bilingual essay on how poetry became part of who I am.</p></button>
+        <button type="button" class="project-card hide" data-category="writing" data-sub="creative" data-title="Creative Writing"><span class="tag">Writing · Creative</span><p>Coming soon.</p></button>
 
         <button type="button" class="project-card hide" data-category="photos" data-title="Louisa's Artistry" data-slug="louisas-artistry-story"><span class="tag">Photos</span><p>How one accidental shot turned into Louisa's Artistry.</p></button>
         <button type="button" class="project-card hide" data-category="photos" data-title="Vietnam Symposium on Rechargeable Batteries @ VinUniversity" data-slug="vinuni-battery-symposium"><span class="tag">Photos</span><p>Snapshots and stories from my first scientific conference.</p></button>
@@ -735,6 +772,7 @@
 
   var pills = document.querySelectorAll('.pill');
   var cards = document.querySelectorAll('.project-card');
+  var subHeadings = document.querySelectorAll('.sub-heading');
   var detailTitle = document.getElementById('detail-title');
   var detailBody = document.getElementById('detail-body');
   var detailBack = document.getElementById('detail-back');
@@ -763,6 +801,9 @@
     });
     cards.forEach(function(card){
       card.classList.toggle('hide', card.dataset.category !== filter);
+    });
+    subHeadings.forEach(function(h){
+      h.classList.toggle('hide', h.dataset.category !== filter);
     });
   }
 
