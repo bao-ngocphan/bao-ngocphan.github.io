@@ -69,7 +69,7 @@
     padding: 0 76px;
   }
 
-  /*huhu-toi muon duoc di hat o KTV*/
+  /*I love u babe*/
   header.site-nav{
     padding: 40px 0 0;
   }
@@ -402,7 +402,7 @@
     .photo-gallery{ grid-template-columns: 1fr; }
   }
 
-  /* essay: epigraph + language blocks */
+  /* tản văn linh tinh */
   .epigraph{
     margin: 0 0 30px;
     padding: 4px 0 4px 20px;
@@ -432,7 +432,7 @@
   }
 
 
-  /* căn đều 2 bên cho nội dung */
+  /* căn lề */
   p.body-text,
   .article-content .article-abstract,
   .article-content ul,
@@ -448,7 +448,7 @@
   .epigraph p{ text-align: left; hyphens: none; }
   .project-card p{ text-align: justify; }
 
-  /* sub-groups in Writing */
+  /* sub-groups */
   .sub-heading{
     grid-column: 1 / -1;
     margin: 10px 0 -6px;
@@ -496,7 +496,7 @@
 
   <main id="main-content">
 
-    <!-- HOME -->
+    <!-- Spiderman: home coming -->
     <section class="page active" id="page-home" aria-labelledby="home-heading">
       <div class="home-grid">
         <div>
@@ -531,7 +531,7 @@
       </div>
     </section>
 
-    <!-- PROJECTS -->
+    <!-- Training season -->
     <section class="page" id="page-projects" aria-labelledby="projects-heading">
       <h2 class="section-title" id="projects-heading">PROJECTS &amp; <span class="accent">PORTFOLIO.</span></h2>
 
@@ -559,7 +559,7 @@
       </div>
     </section>
 
-    <!-- PROJECT-DETAIL-->
+    <!-- project đì têu -->
     <section class="page" id="page-detail" aria-labelledby="detail-heading">
       <button type="button" class="back-link" id="detail-back">&larr; Back to Projects</button>
       <h2 class="section-title detail-title" id="detail-heading"><span id="detail-title">Project</span><span class="accent">.</span></h2>
@@ -794,7 +794,7 @@
     window.scrollTo({ top: 0, behavior: 'auto' });
   }
 
-  // Projects filter
+  // Prj filter btw
   function setFilter(filter){
     pills.forEach(function(p){
       p.setAttribute('aria-pressed', p.dataset.filter === filter ? 'true' : 'false');
@@ -813,10 +813,7 @@
     });
   });
 
-  // Router: URL path -> page
-  //   /  or /home          -> Home
-  //   /projects            -> Projects
-  //   /projects/<slug>     -> project detail
+  // Râu tờ
   function render(path){
     var parts = path.replace(/^\/+|\/+$/g, '').split('/');
     var page = parts[0] || 'home';
@@ -856,7 +853,7 @@
     });
   });
 
-  // Project card -> detail page
+  // Prj idk
   cards.forEach(function(card){
     card.addEventListener('click', function(){
       var slug = card.dataset.slug;
